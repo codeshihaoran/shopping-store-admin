@@ -68,13 +68,13 @@ const Login = () => {
                         </span>
 
                         <div className="wrap-input100 validate-input">
-                            <input className="input100" value={inputUserName} onChange={getUserName} />
+                            <input className="input100 has-val" value={inputUserName} onChange={getUserName} />
                             <span className="focus-input100" data-placeholder="Email"></span>
                         </div>
 
                         <div className="wrap-input100 validate-input">
-                            <input className="input100" value={inputPassword} onChange={getPassword} />
-                            <span className="focus-input100" data-placeholder="Password"></span>
+                            <input className="input100 has-val" value={inputPassword} onChange={getPassword} />
+                            <span className="focus-input100" data-placeholder="Password" ></span>
 
                         </div>
 
