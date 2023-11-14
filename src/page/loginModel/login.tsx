@@ -1,34 +1,56 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import './login.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { setUser } from '@/store/modules/user';
-
+import { notification } from 'antd'
 const Login = () => {
+    const [api, contextHolder] = notification.useNotification();
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const userNameRef = useRef()
-    console.dir(userNameRef.current)
+    const [inputUserName, setInputUserName] = useState('')
+    const [inputPassword, setInputPassword] = useState('')
+    const getUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputUserName(event.target.value)
+        console.log(inputUserName);
+
+    }
+    const getPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputPassword(event.target.value)
+        console.log(inputPassword);
+
+    }
     const login = () => {
         const data = {
-            userName: 'shr481934',
-            password: 'aaaa8888'
+            userName: inputUserName,
+            password: inputPassword
         }
         console.log(data);
         axios.post(
             'api/users/login',
             data
         ).then(res => {
-            console.log(res.data);
-            if (res.data.code === '001') {
-                console.log(res.data);
-                // 将返回的id保存到redux
-                dispatch(setUser(res.data.user))
-                // 跳转到首页
-                navigate('/')
+            switch (res.data.code) {
+                case '001':
+                    // 将返回的id保存到redux
+                    dispatch(setUser(res.data.user))
+                    // 跳转到首页
+                    navigate('/')
+                    break;
+                case '002':
+                    api['error']({
+                        message: `错误码：${res.data.code}`,
+                        description: `错误信息：${res.data.msg}`,
+                    });
+                    break
+                case '004':
+                    api['error']({
+                        message: `错误码：${res.data.code}`,
+                        description: `错误信息：${res.data.msg}`,
+                    });
+                    break
             }
-
         }).catch((err) => {
             console.log(err);
         })
@@ -46,18 +68,20 @@ const Login = () => {
                         </span>
 
                         <div className="wrap-input100 validate-input">
-                            <input className="input100" />
+                            <input className="input100" value={inputUserName} onChange={getUserName} />
                             <span className="focus-input100" data-placeholder="Email"></span>
                         </div>
 
                         <div className="wrap-input100 validate-input">
-                            <input className="input100" />
+                            <input className="input100" value={inputPassword} onChange={getPassword} />
                             <span className="focus-input100" data-placeholder="Password"></span>
+
                         </div>
 
                         <div className="container-login100-form-btn">
                             <div className="wrap-login100-form-btn">
                                 <div className="login100-form-bgbtn"></div>
+                                {contextHolder}
                                 <button className="login100-form-btn" type='button' onClick={() => login()}>
                                     Login
                                 </button>
