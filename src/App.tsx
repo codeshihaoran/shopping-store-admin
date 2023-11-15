@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import '@/app.css'
+import '@/app.less'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { notification } from 'antd'

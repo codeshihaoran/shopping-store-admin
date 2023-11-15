@@ -29,6 +29,16 @@ module.exports = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             },
+            // 配置less文件
+            {
+                test: /\.less$/i,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "less-loader"
+                ]
+            },
+
             // 图片加载 webpack5自带asset-module处理
             {
                 test: /.(png|jpg|jpeg|gif|svg)$/,
