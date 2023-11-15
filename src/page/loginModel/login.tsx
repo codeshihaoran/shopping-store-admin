@@ -6,20 +6,41 @@ import { useDispatch } from "react-redux";
 import { setUser } from '@/store/modules/user';
 import { notification } from 'antd'
 const Login = () => {
-    const [api, contextHolder] = notification.useNotification();
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [errUserMessage, setUserErrMessage] = useState('')
+    const [errPassMessage, setPassErrMessage] = useState('')
+    const [api, contextHolder] = notification.useNotification();
     const [inputUserName, setInputUserName] = useState('')
     const [inputPassword, setInputPassword] = useState('')
     const getUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputUserName(event.target.value)
-        console.log(inputUserName);
+        const inputUserValue = event.target.value
+        if (inputUserValue === '') {
+            setUserErrMessage('请输入用户名')
+        } else {
+            const userNameRule = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
+            if (userNameRule.test(inputUserValue)) {
+                setUserErrMessage('')
+            } else {
+                setUserErrMessage('字母开头,长度5-16之间,允许下划线')
+            }
 
+        }
+        setInputUserName(inputUserValue)
     }
     const getPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputPassword(event.target.value)
-        console.log(inputPassword);
-
+        const inputPassValue = event.target.value
+        if (inputPassValue === '') {
+            setPassErrMessage('请输入密码')
+        } else {
+            const passwordRule = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
+            if (passwordRule.test(inputPassValue)) {
+                setPassErrMessage('')
+            } else {
+                setPassErrMessage('字母开头,长度5-16之间,允许下划线')
+            }
+        }
+        setInputPassword(inputPassValue)
     }
     const login = () => {
         const data = {
@@ -68,16 +89,16 @@ const Login = () => {
                         </span>
 
                         <div className="wrap-input100 validate-input">
-                            <input className="input100 has-val" value={inputUserName} onChange={getUserName} />
+                            <input className="input100 has-val" value={inputUserName} onChange={getUserName} onBlur={getUserName} />
                             <span className="focus-input100" data-placeholder="Email"></span>
                         </div>
+                        <div className='input-view'>{errUserMessage}</div>
 
                         <div className="wrap-input100 validate-input">
-                            <input className="input100 has-val" value={inputPassword} onChange={getPassword} />
+                            <input className="input100 has-val" value={inputPassword} onChange={getPassword} onBlur={getPassword} />
                             <span className="focus-input100" data-placeholder="Password" ></span>
-
                         </div>
-
+                        <div className='input-view'>{errPassMessage}</div>
                         <div className="container-login100-form-btn">
                             <div className="wrap-login100-form-btn">
                                 <div className="login100-form-bgbtn"></div>
