@@ -1,9 +1,8 @@
-import React, { useEffect, } from 'react'
+import React, { useEffect, useState, } from 'react'
 import '@/app.less'
 import { Link, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
 import { notification } from 'antd'
-import { useSelector } from 'react-redux';
 import Login from './page/loginModel/login';
 import Product from '@/page/productModel/product'
 import Order from '@/page/orderModel/order';
@@ -11,15 +10,13 @@ import Info from '@/page/infoModel/info';
 import Home from '@/page/homeModel/home';
 function App() {
     const [api, contextHolder] = notification.useNotification();
+    const [flag, setflag] = useState(true)
     const navigate = useNavigate()
-    const userInfo = useSelector((state: { user: { user_id: number, userName: string } }) => state.user)
-    console.log(userInfo);
     useEffect(() => {
-
         axios.get('api/users/info').then(res => {
-            // console.log(res.data);
             if (res.data.code === '004') {
                 navigate('/login')
+                setflag(false)
             } else {
                 api['success']({
                     message: `你已登录成功`,
@@ -34,7 +31,9 @@ function App() {
     return (
         <div>
             {contextHolder}
-            <div className='left-view'>
+
+            {/* 路由导航区 */}
+            {flag && <div className='left-view'>
                 <h1>Home</h1>
                 <ul>
                     <li><Link to={'/'}>商城首页</Link></li>
@@ -42,9 +41,10 @@ function App() {
                     <li><Link to={'/order'}>订单管理</Link></li>
                     <li><Link to={'/info'}>信息管理</Link></li>
                 </ul>
-            </div>
+            </div>}
 
 
+            {/* 路由组件显示区域 */}
             <div className='right-view'>
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -54,8 +54,6 @@ function App() {
                     <Route path="login" element={<Login />} />
                 </Routes>
             </div>
-
-
         </div>
     )
 }
