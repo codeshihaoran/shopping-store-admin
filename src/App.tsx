@@ -3,7 +3,7 @@ import '@/app.less'
 import { Link, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
 import { notification } from 'antd'
-
+import { useSelector } from 'react-redux';
 import Login from './page/loginModel/login';
 import Product from '@/page/productModel/product'
 import Order from '@/page/orderModel/order';
@@ -12,7 +12,10 @@ import Home from '@/page/homeModel/home';
 function App() {
     const [api, contextHolder] = notification.useNotification();
     const navigate = useNavigate()
+    const userInfo = useSelector((state: { user: { user_id: number, userName: string } }) => state.user)
+    console.log(userInfo);
     useEffect(() => {
+
         axios.get('api/users/info').then(res => {
             // console.log(res.data);
             if (res.data.code === '004') {
