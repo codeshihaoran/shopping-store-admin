@@ -90,7 +90,7 @@ const Login = () => {
 
                         <div className="wrap-input100 validate-input">
                             <input className="input100 has-val" value={inputUserName} onChange={getUserName} onBlur={getUserName} />
-                            <span className="focus-input100" data-placeholder="Email"></span>
+                            <span className="focus-input100" data-placeholder="UserName"></span>
                         </div>
                         <div className='input-view'>{errUserMessage}</div>
 
