@@ -1,0 +1,62 @@
+html,
+body {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app-main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    // 导航栏区域
+    .topbar {
+        height: 80px;
+        background-color: #efefef;
+    }
+
+    // 内容区域
+    .main {
+        flex: 1;
+        display: flex;
+        overflow-y: hidden;
+    }
+
+    //左侧区域
+    .left-view {
+        height: 100%;
+        width: 250px;
+        overflow-y: auto;
+    }
+
+    // 右侧区域 
+    .right-view {
+        flex: 1;
+        height: 100%;
+        padding-left: 10px;
+        background-color: #e6e6e6;
+        display: flex;
+        flex-direction: column;
+
+        .view-top {
+            display: block;
+        }
+
+        .view-main {
+            flex: 1;
+            background-color: #fff;
+            overflow-y: auto;
+            height: 600px;
+        }
+    }
+
+    .footer {
+        height: 50px;
+        background-color: #efefef;
+    }
+}

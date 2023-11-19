@@ -4,7 +4,12 @@ const Product = () => {
 
 
     return (
-        <div className="product">商品页面</div>
+        <div className="product">
+            <div className="view-main">
+                <h1>this is 产品</h1>
+                我是产品内容
+            </div>
+        </div>
     )
 }
 export default Product

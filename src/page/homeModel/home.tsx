@@ -3,7 +3,10 @@ import './home.less'
 const Home = () => {
     return (
         <div className="home">
-            我是首页
+            <div className="view-main">
+                <h1>this is 消息</h1>
+                我是消息内容
+            </div>
         </div>
     )
 }
