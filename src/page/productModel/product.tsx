@@ -3,6 +3,7 @@ import './product.less'
 import axios from "axios";
 import { Checkbox, Button } from "antd";
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { useNavigate } from "react-router-dom";
 interface ProductData {
     product_id: number
     product_name: string
@@ -17,6 +18,7 @@ interface ProductData {
 }
 const Product = () => {
     const [productData, setProductData] = useState([])
+    const navigate = useNavigate()
     const Data = {
         categoryId: 0,
         currentPage: 1,
@@ -73,20 +75,11 @@ const Product = () => {
                                 <div className="pro-price">{item.product_price}</div>
                                 <div className="pro-num">{item.product_num}</div>
                                 <div className="pro-sell">{item.product_selling_price}</div>
-                                <div className="pro-action"><Button>更多操作</Button></div>
-                            </li>)}
-
-                        {/* <li className="product-list">
-                            <div className="pro-check">
-                                <Checkbox onChange={isCheck}></Checkbox>
-                            </div>
-                            <div className="pro-img"></div>
-                            <div className="pro-name"></div>
-                            <div className="pro-price"></div>
-                            <div className="pro-num"></div>
-                            <div className="pro-total"></div>
-                            <div className="pro-action"></div>
-                        </li> */}
+                                <div className="pro-action">
+                                    <Button onClick={() => navigate(`/action?productId=${item.product_id}`)}>更多操作</Button>
+                                </div>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>
