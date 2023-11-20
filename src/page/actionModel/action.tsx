@@ -2,18 +2,7 @@ import React, { useEffect, useState } from "react"
 import './action.less'
 import { useSearchParams } from "react-router-dom"
 import axios from "axios"
-interface ProductData {
-    product_id: number
-    product_name: string
-    category_id: number
-    product_title: string
-    product_intro: string
-    product_picture: string
-    product_price: number
-    product_selling_price: number
-    product_num: number
-    product_sales: number
-}
+import { ProductData } from "@/type/index"
 const Action = () => {
     const [productData, setProductData] = useState([])
     const [params] = useSearchParams()
@@ -31,7 +20,7 @@ const Action = () => {
         }).catch(err => {
             console.log(err);
         })
-    })
+    }, [])
     return (
         <div className="action">
             <div className="view-main">

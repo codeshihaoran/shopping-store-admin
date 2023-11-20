@@ -4,18 +4,7 @@ import axios from "axios";
 import { Checkbox, Button } from "antd";
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useNavigate } from "react-router-dom";
-interface ProductData {
-    product_id: number
-    product_name: string
-    category_id: number
-    product_title: string
-    product_intro: string
-    product_picture: string
-    product_price: number
-    product_selling_price: number
-    product_num: number
-    product_sales: number
-}
+import { ProductData } from "@/type/index";
 const Product = () => {
     const [productData, setProductData] = useState([])
     const navigate = useNavigate()
