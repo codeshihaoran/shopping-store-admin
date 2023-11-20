@@ -44,8 +44,11 @@ function App() {
                     {/* 内容区域 */}
                     {/* 左视图 */}
                     <div className='main'>
+
                         <div className='left-view'>
-                            <h1>Home</h1>
+                            <div className='left-view-top'>
+                                <a href="#">SHOPPING-ADMIN</a>
+                            </div>
                             <ul>
                                 <li><Link to={'/'}>商城首页</Link></li>
                                 <li><Link to={'/product'}>商品管理</Link></li>

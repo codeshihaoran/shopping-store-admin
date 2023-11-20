@@ -21,6 +21,13 @@ module.exports = merge(baseConfig, {
                 pathRewrite: {
                     '^/api': ''
                 }
+            },
+            '/public': {
+                target: 'http://127.0.0.1:3000/public',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/public': ''
+                }
             }
         },
     },

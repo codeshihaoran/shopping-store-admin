@@ -4,8 +4,8 @@ const Home = () => {
     return (
         <div className="home">
             <div className="view-main">
-                <h1>this is 消息</h1>
-                我是消息内容
+                <h1>this is 首页</h1>
+                我是首页内容
             </div>
         </div>
     )
