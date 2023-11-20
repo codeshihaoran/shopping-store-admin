@@ -3,17 +3,40 @@ import '@/app.less'
 import { Link, useNavigate, Routes, Route, useLocation } from "react-router-dom";
 import axios from 'axios';
 import { notification } from 'antd'
+
+// page
 import Login from '@/page/loginModel/login';
 import Product from '@/page/productModel/product'
 import Order from '@/page/orderModel/order';
 import Info from '@/page/infoModel/info';
 import Home from '@/page/homeModel/home';
+import Action from '@/page/actionModel/action'
+
 function App() {
     const [api, contextHolder] = notification.useNotification();
     const [flag, setflag] = useState(true)
+    const [breadCrumbName, setBreadCrumbName] = useState('')
     const navigate = useNavigate()
-    const [userInfo, setUserInfo] = useState('')
-    console.log('userInfo：', userInfo)
+    const location = useLocation()
+    const breadCrumb = [
+        {
+            id: 1,
+            title: '商城首页',
+            url: '/'
+        }, {
+            id: 2,
+            title: '商品管理',
+            url: '/product'
+        }, {
+            id: 3,
+            title: '订单管理',
+            url: '/order'
+        }, {
+            id: 4,
+            title: '信息管理',
+            url: '/info'
+        }
+    ]
     useEffect(() => {
         axios.get('api/users/info').then(res => {
             if (res.data.code === '004') {
@@ -24,50 +47,48 @@ function App() {
                     message: `你已登录成功`,
                     description: `你好！Admin`,
                 });
-                setUserInfo(res.data.user)
             }
         }).catch(err => {
             console.log(err);
         })
     }, [])
+    useEffect(() => {
+        breadCrumb.map(item => {
+            if (location.pathname == item.url) {
+                setBreadCrumbName(item.title)
+            }
+        })
+    })
     return (
         <div className='app'>
             {contextHolder}
             <Routes>
                 <Route path="login" element={<Login />} />
             </Routes>
-            {/* 路由导航区 */}
             {flag &&
                 <div className='app-main'>
                     {/* 导航栏区域 */}
                     <div className='topbar'> </div>
-                    {/* 内容区域 */}
                     {/* 左视图 */}
                     <div className='main'>
-
                         <div className='left-view'>
                             <div className='left-view-top'>
                                 <a href="#">SHOPPING-ADMIN</a>
                             </div>
                             <ul>
-                                <li><Link to={'/'}>商城首页</Link></li>
-                                <li><Link to={'/product'}>商品管理</Link></li>
-                                <li><Link to={'/order'}>订单管理</Link></li>
-                                <li><Link to={'/info'}>信息管理</Link></li>
+                                {breadCrumb.map(item => <li key={item.id}><Link to={item.url}>{item.title}</Link></li>)}
                             </ul>
                         </div>
-
-                        {/* 路由组件显示区域 */}
                         {/* 右视图 */}
                         <div className='right-view'>
                             <div className='view-top'>
-                                当前位置：面包屑 》面包屑
+                                当前位置：{breadCrumbName}
                             </div>
-
                             <div className='view-main'>
                                 <Routes>
                                     <Route path="/" element={<Home />} />
                                     <Route path="product" element={<Product />} />
+                                    <Route path="action" element={<Action />} />
                                     <Route path="order" element={<Order />} />
                                     <Route path="info" element={<Info />} />
                                 </Routes>
