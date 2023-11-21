@@ -11,7 +11,7 @@ import Order from '@/page/orderModel/order';
 import Info from '@/page/infoModel/info';
 import Home from '@/page/homeModel/home';
 import Action from '@/page/actionModel/action'
-
+import Revise from '@/page/reviseModel/revise';
 function App() {
     const [api, contextHolder] = notification.useNotification();
     const [flag, setflag] = useState(true)
@@ -89,6 +89,7 @@ function App() {
                                     <Route path="/" element={<Home />} />
                                     <Route path="product" element={<Product />} />
                                     <Route path="action" element={<Action />} />
+                                    <Route path="revise" element={<Revise />} />
                                     <Route path="order" element={<Order />} />
                                     <Route path="info" element={<Info />} />
                                 </Routes>

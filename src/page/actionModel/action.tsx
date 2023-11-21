@@ -58,7 +58,7 @@ const Action = () => {
                             <p className="availability">剩余量：<span>{item.product_num}</span></p>
                             <p className="discount">优惠价：<span>{item.product_selling_price}</span></p>
                             <button className="remove" onClick={() => deleteProduct(item.product_id)}>下架</button>
-                            <button className="edit">修改</button>
+                            <button className="edit" onClick={() => navigate(`/revise?productId=${item.product_id}`)}>修改</button>
                         </div>
                     </section>
                 </li>)}
