@@ -1,12 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import './revise.less'
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
+import { message } from "antd"
 const Revise = () => {
+    const navigate = useNavigate()
     const [params] = useSearchParams()
     let product_id = params.get('productId')
-    console.log(product_id);
+    const [inputValues, setInputValues] = useState({
+        input1: '', // 修改的商品名称
+        input2: '', // 修改的商品价格
+        input3: '', // 修改的商品数量
+        input4: '', // 修改的优惠价
+    })
+    const getInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        setInputValues((val) => ({
+            ...val,
+            [name]: value
+        }))
+    }
     const submitData = () => {
+        const Data = {
+            productId: product_id,
+            productInfo: inputValues
+        }
+        axios.post('/api/product/prodctInfo/revise', Data).then(res => {
+            if (res.data.code === '001') {
+                navigate(`/action?productId=${product_id}`)
+                message.success(res.data.message)
+            }
+            if (res.data.code === '004') {
+                message.error(res.data.message)
+            }
+        }).catch(err => {
+            console.log(err);
 
+        })
     }
     return (
         <div className="revise">
@@ -19,25 +49,24 @@ const Revise = () => {
                     <form>
                         <div className="form-group">
                             <label htmlFor="productName">商品名称</label>
-                            <input type="text" id="productName" name="productName" placeholder="输入商品名称" required />
+                            <input type="text" id="productName" onChange={getInputValue} value={inputValues.input1} name="input1" placeholder="输入商品名称" required />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="productPrice">商品价格</label>
-                            <input type="number" id="productPrice" name="productPrice" placeholder="输入商品价格" required />
+                            <input id="productPrice" name="input2" onChange={getInputValue} value={inputValues.input2} placeholder="输入商品价格" required />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="productQuantity">商品数量</label>
-                            <input type="number" id="productQuantity" name="productQuantity" placeholder="输入商品数量" required />
+                            <input type="number" id="productQuantity" name="input3" onChange={getInputValue} value={inputValues.input3} placeholder="输入商品数量" required />
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="productDescription">商品描述</label>
-                            <textarea id="productDescription" name="productDescription" placeholder="输入商品描述" required></textarea>
+                            <label htmlFor="productDescription">商品优惠</label>
+                            <input type="number" id="productDescription" name="input4" onChange={getInputValue} value={inputValues.input4} placeholder="输入商品描述" required />
                         </div>
-
-                        <button type="submit" className="update-button" onClick={() => submitData()}>更新商品信息</button>
+                        <button type="button" className="update-button" onClick={() => submitData()}>更新商品信息</button>
                     </form>
                 </section>
             </div>

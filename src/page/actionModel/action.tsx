@@ -5,10 +5,10 @@ import axios from "axios"
 import { ProductData } from "@/type/index"
 import { message } from "antd"
 const Action = () => {
-    const [productData, setProductData] = useState([])
     const [params] = useSearchParams()
-    const navigate = useNavigate()
     let product_id = params.get('productId')
+    const [productData, setProductData] = useState([])
+    const navigate = useNavigate()
     const data = {
         productId: product_id
     }
