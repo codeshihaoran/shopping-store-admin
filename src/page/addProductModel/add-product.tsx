@@ -3,9 +3,9 @@ import './add-product.less'
 const Addproduct = () => {
     return (
         <div className="addProduct">
-            <div className="view-main">
+            <div className="add-product view-main">
                 <div className="form-container animated fadeInDown ">
-                    <h1>添加商品</h1>
+                    <h1 className="addProduct-h1">添加商品</h1>
                     <form>
                         <div className="form-group">
                             <label htmlFor="productId">商品ID:</label>

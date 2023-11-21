@@ -41,28 +41,28 @@ const Revise = () => {
     return (
         <div className="revise">
             <div className="view-main">
-                <header>
-                    <h1>修改商品信息</h1>
+                <header className="revise-header">
+                    <h1 className="revise-h1">修改商品信息</h1>
                 </header>
 
-                <section className="product-form">
+                <section className="product-form-revise">
                     <form>
-                        <div className="form-group">
+                        <div className="revise-form-group">
                             <label htmlFor="productName">商品名称</label>
                             <input type="text" id="productName" onChange={getInputValue} value={inputValues.input1} name="input1" placeholder="输入商品名称" required />
                         </div>
 
-                        <div className="form-group">
+                        <div className="revise-form-group">
                             <label htmlFor="productPrice">商品价格</label>
                             <input id="productPrice" name="input2" onChange={getInputValue} value={inputValues.input2} placeholder="输入商品价格" required />
                         </div>
 
-                        <div className="form-group">
+                        <div className="revise-form-group">
                             <label htmlFor="productQuantity">商品数量</label>
                             <input type="number" id="productQuantity" name="input3" onChange={getInputValue} value={inputValues.input3} placeholder="输入商品数量" required />
                         </div>
 
-                        <div className="form-group">
+                        <div className="revise-form-group">
                             <label htmlFor="productDescription">商品优惠</label>
                             <input type="number" id="productDescription" name="input4" onChange={getInputValue} value={inputValues.input4} placeholder="输入商品描述" required />
                         </div>
