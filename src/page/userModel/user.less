@@ -1,0 +1,62 @@
+.user-container {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.user-table-header {
+    display: flex;
+    background-color: #3498db;
+    color: #fff;
+    width: 80%;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .table-cell {
+        flex: 1;
+        padding: 10px;
+        text-align: left;
+    }
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    width: 80%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px;
+
+    .user-item {
+        display: flex;
+        justify-content: space-between;
+
+
+        .user-value {
+            padding: 10px;
+            flex: 1;
+            text-align: left;
+            color: #333;
+        }
+
+
+        button {
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: darken(#2ecc71, 10%);
+            }
+        }
+
+    }
+}
