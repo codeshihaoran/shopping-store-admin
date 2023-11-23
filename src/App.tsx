@@ -13,6 +13,7 @@ import Home from '@/page/homeModel/home';
 import Action from '@/page/actionModel/action'
 import Revise from '@/page/reviseModel/revise';
 import Addproduct from '@/page/addProductModel/add-product';
+import User from '@/page/userModel/user';
 function App() {
     const [api, contextHolder] = notification.useNotification();
     const [flag, setflag] = useState(true)
@@ -32,7 +33,13 @@ function App() {
             id: 3,
             title: '订单管理',
             url: '/order'
-        }, {
+        },
+        {
+            id: 5,
+            title: '用户管理',
+            url: '/user'
+        },
+        {
             id: 4,
             title: '信息管理',
             url: '/info'
@@ -94,6 +101,7 @@ function App() {
                                     <Route path="add-product" element={<Addproduct />} />
                                     <Route path="order" element={<Order />} />
                                     <Route path="info" element={<Info />} />
+                                    <Route path='user' element={<User />} />
                                 </Routes>
                             </div>
                         </div>
