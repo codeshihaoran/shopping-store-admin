@@ -18,6 +18,7 @@ const Addproduct = () => {
     })
     // selectFile可以时File也可以是null类型
     const [selectFile, setSelectFile] = useState<File | null>(null);
+    // 返回的图片路径
     const [imageUrl, setImageUrl] = useState()
     const navigate = useNavigate()
     // 上传照片事件
@@ -43,12 +44,31 @@ const Addproduct = () => {
         })
     }
     const getInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-
+        const { name, value } = event.target
+        setInputValue((val) => ({
+            ...val,
+            [name]: value
+        }))
     }
 
     // 提交产品信息事件
     const submitData = () => {
-
+        console.log(imageUrl);
+        const Data = {
+            productInfo: inputValue,
+            imgPath: imageUrl
+        }
+        axios.post('/api/product/add', Data).then(res => {
+            if (res.data.code === '001') {
+                message.success(res.data.message)
+                navigate('/product')
+            }
+            if (res.data.code === '004') {
+                message.error(res.data.message)
+            }
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     return (
