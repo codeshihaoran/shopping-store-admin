@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './order.less'
-import { Checkbox } from "antd";
+import { Checkbox, Button } from "antd";
+import axios from "axios";
+import { order } from "@/type/order";
 const Order = () => {
+    const [orderList, setOrderList] = useState([])
+    useEffect(() => {
+        axios.post('/api/admin/order/get').then(res => {
+            setOrderList(res.data.data)
+        }).catch(err => {
+            console.log(err);
+        })
+    }, [])
     return (
         <div className="order">
             <div className="view-main">
@@ -50,19 +60,20 @@ const Order = () => {
                                 <div className="header-info order-status">订单状态</div>
                                 <div className="header-info order-action">操作</div>
                             </li>
-                            <li className="order-list">
+                            {orderList.map((item: order) => <li key={item.id} className="order-list">
                                 <div className="header-info order-checkout"><Checkbox></Checkbox></div>
-                                <div className="header-info order-number">订单编号</div>
-                                <div className="header-info order-title">商品标题</div>
-                                <div className="header-info order-num">订单数量</div>
-                                <div className="header-info order-price">订单金额</div>
-                                <div className="header-info order-name">用户姓名</div>
-                                <div className="header-info order-phone">联系方式</div>
-                                <div className="header-info order-address">用户地址</div>
-                                <div className="header-info order-time">创建时间</div>
-                                <div className="header-info order-status">订单状态</div>
-                                <div className="header-info order-action">操作</div>
+                                <div className="header-info order-number">{item.order_id}</div>
+                                <div className="header-info order-title">{item.product_title}</div>
+                                <div className="header-info order-num">{item.product_num}</div>
+                                <div className="header-info order-price">{item.product_price * item.product_num}</div>
+                                <div className="header-info order-name">{item.user_name}</div>
+                                <div className="header-info order-phone">{item.user_phone}</div>
+                                <div className="header-info order-address">甘肃省安宁区</div>
+                                <div className="header-info order-time">{item.order_time}</div>
+                                <div className="header-info order-status">已支付</div>
+                                <div className="header-info order-action"><Button>查看</Button></div>
                             </li>
+                            )}
                         </ul>
                     </div>
                 </div>
