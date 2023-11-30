@@ -7,7 +7,7 @@ const Order = () => {
     const [orderList, setOrderList] = useState([])
     const [searchValue, setSearchValue] = useState(
         {
-            orderNum: '',
+            orderId: '',
             receiver: '',
             payStatus: '',
             orderTime: ''
@@ -29,10 +29,16 @@ const Order = () => {
     }
     const clearValue = () => {
         setSearchValue({
-            orderNum: '',
+            orderId: '',
             receiver: '',
             payStatus: '',
             orderTime: ''
+        })
+    }
+    const inquireOrderInfo = () => {
+        orderList.map((item: order) => {
+            if (item.id == searchValue.orderId) {
+            }
         })
     }
     return (
@@ -45,8 +51,8 @@ const Order = () => {
                     {/* 订单查询 */}
                     <div className="search-container">
                         <div className="serach-top">
-                            <span>订单编号：</span>
-                            <input type="text" onChange={getChangeValue} value={searchValue.orderNum} name="orderNum" />
+                            <span>订单ID：</span>
+                            <input type="text" onChange={getChangeValue} value={searchValue.orderId} name="orderId" />
                             <span className="search-span">收货人：</span>
                             <input type="text" onChange={getChangeValue} value={searchValue.receiver} name="receiver" />
                         </div>
@@ -61,7 +67,7 @@ const Order = () => {
                             <span className="search-span">下单时间：</span>
                             <input type="datetime-local" onChange={getChangeValue} value={searchValue.orderTime} name="orderTime" />
                             <div className="btn">
-                                <button className="search-btn">查询</button>
+                                <button className="search-btn" onClick={inquireOrderInfo}>查询</button>
                                 <button className="reset-btn" onClick={clearValue}>重置</button>
                             </div>
                         </div>
@@ -79,8 +85,8 @@ const Order = () => {
                                 <div className="header-info order-name">用户姓名</div>
                                 <div className="header-info order-phone">联系方式</div>
                                 <div className="header-info order-address">用户地址</div>
-                                <div className="header-info order-time">创建时间</div>
-                                <div className="header-info order-status">订单状态</div>
+                                <div className="header-info order-time">下单时间</div>
+                                <div className="header-info order-status">订单ID</div>
                                 <div className="header-info order-action">操作</div>
                             </li>
                             {orderList.map((item: order) => <li key={item.id} className="order-list">
@@ -93,7 +99,7 @@ const Order = () => {
                                 <div className="header-info order-phone">{item.user_phone}</div>
                                 <div className="header-info order-address">甘肃省安宁区</div>
                                 <div className="header-info order-time">{item.order_time}</div>
-                                <div className="header-info order-status">已支付</div>
+                                <div className="header-info order-status">{item.id}</div>
                                 <div className="header-info order-action"><Button>查看</Button></div>
                             </li>
                             )}
