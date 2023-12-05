@@ -13,6 +13,7 @@ const Order = () => {
             orderTime: ''
         }
     )
+    const [searchData, setSearchData] = useState()
     useEffect(() => {
         axios.post('/api/admin/order/get').then(res => {
             setOrderList(res.data.data)
@@ -36,9 +37,25 @@ const Order = () => {
         })
     }
     const inquireOrderInfo = () => {
-        orderList.map((item: order) => {
-            if (item.id == searchValue.orderId) {
+        const data: { [key: string]: string | number } = {}
+        for (const key in searchValue) {
+            // 使用hasOwnProperty()方法确保只遍历对象自身属性
+            if (searchValue.hasOwnProperty(key)) {
+                const value = searchValue[key];
+                if (value != '') {
+                    data[key] = value
+                }
             }
+        }
+        console.log(data);
+        axios.post('/api/admin/order/search', data).then(res => {
+            if (res.data.code === '001') {
+                setSearchData(res.data.searchOrderInfo)
+            }
+            console.log(searchData);
+
+        }).catch(err => {
+            console.log(err);
         })
     }
     return (
