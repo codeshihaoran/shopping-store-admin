@@ -68,7 +68,7 @@ const Order = () => {
                     {/* 订单查询 */}
                     <div className="search-container">
                         <div className="serach-top">
-                            <span>订单ID：</span>
+                            <span>订单编号：</span>
                             <input type="text" onChange={getChangeValue} value={searchValue.orderId} name="orderId" />
                             <span className="search-span">收货人：</span>
                             <input type="text" onChange={getChangeValue} value={searchValue.receiver} name="receiver" />
@@ -77,9 +77,9 @@ const Order = () => {
                             <span>支付状态：</span>
                             <select value={searchValue.payStatus} onChange={getChangeValue} name="payStatus">
                                 <option value="请选择">请选择</option>
-                                <option value="paid">已支付</option>
-                                <option value="pending">待支付</option>
-                                <option value="canceled">已取消</option>
+                                <option value="已支付">已支付</option>
+                                <option value="待支付">待支付</option>
+                                <option value="已取消">已取消</option>
                             </select>
                             <span className="search-span">下单时间：</span>
                             <input type="datetime-local" onChange={getChangeValue} value={searchValue.orderTime} name="orderTime" />
@@ -98,12 +98,11 @@ const Order = () => {
                                 <div className="header-info order-number">订单编号</div>
                                 <div className="header-info order-title">商品标题</div>
                                 <div className="header-info order-num">订单数量</div>
-                                <div className="header-info order-price">订单金额</div>
+                                <div className="header-info order-price">支付状态</div>
                                 <div className="header-info order-name">用户姓名</div>
                                 <div className="header-info order-phone">联系方式</div>
                                 <div className="header-info order-address">用户地址</div>
                                 <div className="header-info order-time">下单时间</div>
-                                <div className="header-info order-status">订单ID</div>
                                 <div className="header-info order-action">操作</div>
                             </li>
                             {orderList.map((item: order) => <li key={item.id} className="order-list">
@@ -111,12 +110,11 @@ const Order = () => {
                                 <div className="header-info order-number">{item.order_id}</div>
                                 <div className="header-info order-title">{item.product_title}</div>
                                 <div className="header-info order-num">{item.product_num}</div>
-                                <div className="header-info order-price">{item.product_price * item.product_num}</div>
+                                <div className="header-info order-price">{item.pay_status}</div>
                                 <div className="header-info order-name">{item.user_name}</div>
-                                <div className="header-info order-phone">{item.user_phone}</div>
-                                <div className="header-info order-address">甘肃省安宁区</div>
+                                <div className="header-info order-phone">{item.order_phone}</div>
+                                <div className="header-info order-address">{item.order_address}</div>
                                 <div className="header-info order-time">{item.order_time}</div>
-                                <div className="header-info order-status">{item.id}</div>
                                 <div className="header-info order-action"><Button>查看</Button></div>
                             </li>
                             )}

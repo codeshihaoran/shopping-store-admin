@@ -5,6 +5,8 @@ export interface order {
     product_num: number
     product_price: number
     user_name: string
-    user_phone: number
+    order_phone: number
+    order_address: string
     order_time: string
+    pay_status: string
 }
