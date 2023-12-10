@@ -3,6 +3,7 @@ import './order.less'
 import { Checkbox, Button } from "antd";
 import axios from "axios";
 import { order } from "@/type/order";
+import { useNavigate } from "react-router-dom";
 const Order = () => {
     const [orderList, setOrderList] = useState([])
     const [searchValue, setSearchValue] = useState(
@@ -14,6 +15,7 @@ const Order = () => {
         }
     )
     const [searchData, setSearchData] = useState()
+    const navigate = useNavigate()
     useEffect(() => {
         axios.post('/api/admin/order/get').then(res => {
             setOrderList(res.data.data)
@@ -115,7 +117,7 @@ const Order = () => {
                                 <div className="header-info order-phone">{item.order_phone}</div>
                                 <div className="header-info order-address">{item.order_address}</div>
                                 <div className="header-info order-time">{item.order_time}</div>
-                                <div className="header-info order-action"><Button>查看</Button></div>
+                                <div className="header-info order-action"><Button onClick={() => navigate(`/details?order_id=${item.order_id}`)}>查看</Button></div>
                             </li>
                             )}
                         </ul>

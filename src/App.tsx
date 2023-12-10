@@ -14,6 +14,7 @@ import Action from '@/page/actionModel/action'
 import Revise from '@/page/reviseModel/revise';
 import Addproduct from '@/page/addProductModel/add-product';
 import User from '@/page/userModel/user';
+import Details from '@/page/detailsModel/details';
 function App() {
     const [api, contextHolder] = notification.useNotification();
     const [flag, setflag] = useState(true)
@@ -100,6 +101,7 @@ function App() {
                                     <Route path="revise" element={<Revise />} />
                                     <Route path="add-product" element={<Addproduct />} />
                                     <Route path="order" element={<Order />} />
+                                    <Route path='details' element={<Details />} />
                                     <Route path="info" element={<Info />} />
                                     <Route path='user' element={<User />} />
                                 </Routes>
