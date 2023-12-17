@@ -8,5 +8,5 @@ export interface order {
     order_phone: number
     order_address: string
     order_time: string
-    pay_status: string
+    order_status: number
 }

@@ -3,8 +3,14 @@ import './order.less'
 import { Checkbox, Button } from "antd";
 import axios from "axios";
 import { order } from "@/type/order";
+import { Status } from "@/type/status";
 import { useNavigate } from "react-router-dom";
 const Order = () => {
+    const StatusOptions = [
+        { label: '等待中', value: Status.WaitPay },
+        { label: '已支付', value: Status.Success },
+        { label: '已取消', value: Status.Cancel },
+    ]
     const [orderList, setOrderList] = useState([])
     const [searchValue, setSearchValue] = useState(
         {
@@ -23,6 +29,18 @@ const Order = () => {
             console.log(err);
         })
     }, [])
+    const getStatuOption = (order_status: Status) => {
+        switch (order_status) {
+            case Status.WaitPay:
+                return '等待中';
+            case Status.Success:
+                return '已支付';
+            case Status.Cancel:
+                return '已取消';
+            default:
+                return '未知状态';
+        }
+    }
     const getChangeValue = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = event.target
         setSearchValue((val) => ({
@@ -44,7 +62,7 @@ const Order = () => {
             // 使用hasOwnProperty()方法确保只遍历对象自身属性
             if (searchValue.hasOwnProperty(key)) {
                 const value = searchValue[key];
-                if (value != '') {
+                if (value !== '') {
                     data[key] = value
                 }
             }
@@ -112,7 +130,7 @@ const Order = () => {
                                 <div className="header-info order-number">{item.order_id}</div>
                                 <div className="header-info order-title">{item.product_title}</div>
                                 <div className="header-info order-num">{item.product_num}</div>
-                                <div className="header-info order-price">{item.pay_status}</div>
+                                <div className="header-info order-price">{getStatuOption(item.order_status)}</div>
                                 <div className="header-info order-name">{item.user_name}</div>
                                 <div className="header-info order-phone">{item.order_phone}</div>
                                 <div className="header-info order-address">{item.order_address}</div>
