@@ -6,17 +6,12 @@ import { order } from "@/type/order";
 import { Status } from "@/type/status";
 import { useNavigate } from "react-router-dom";
 const Order = () => {
-    const StatusOptions = [
-        { label: '等待中', value: Status.WaitPay },
-        { label: '已支付', value: Status.Success },
-        { label: '已取消', value: Status.Cancel },
-    ]
     const [orderList, setOrderList] = useState([])
     const [searchValue, setSearchValue] = useState(
         {
             orderId: '',
             receiver: '',
-            payStatus: '',
+            payStatus: 1,
             orderTime: ''
         }
     )
@@ -47,12 +42,13 @@ const Order = () => {
             ...val,
             [name]: value
         }))
+        console.log(searchValue);
     }
     const clearValue = () => {
         setSearchValue({
             orderId: '',
             receiver: '',
-            payStatus: '',
+            payStatus: 1,
             orderTime: ''
         })
     }
@@ -70,7 +66,7 @@ const Order = () => {
         console.log(data);
         axios.post('/api/admin/order/search', data).then(res => {
             if (res.data.code === '001') {
-                setSearchData(res.data.searchOrderInfo)
+                setOrderList(res.data.searchOrderInfo)
             }
             console.log(searchData);
 
@@ -97,9 +93,9 @@ const Order = () => {
                             <span>支付状态：</span>
                             <select value={searchValue.payStatus} onChange={getChangeValue} name="payStatus">
                                 <option value="请选择">请选择</option>
-                                <option value="已支付">已支付</option>
-                                <option value="待支付">待支付</option>
-                                <option value="已取消">已取消</option>
+                                <option value="1">已支付</option>
+                                <option value="0">待支付</option>
+                                <option value="2">已取消</option>
                             </select>
                             <span className="search-span">下单时间：</span>
                             <input type="datetime-local" onChange={getChangeValue} value={searchValue.orderTime} name="orderTime" />
