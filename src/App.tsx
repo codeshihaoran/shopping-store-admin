@@ -3,7 +3,7 @@ import '@/app.less'
 import { Link, useNavigate, Routes, Route, useLocation } from "react-router-dom";
 import axios from 'axios';
 import { notification } from 'antd'
-
+import BreadCrumbs from '@/compentens/breadCrumb';
 // page
 import Login from '@/page/loginModel/login';
 import Product from '@/page/productModel/product'
@@ -18,9 +18,7 @@ import Details from '@/page/detailsModel/details';
 function App() {
     const [api, contextHolder] = notification.useNotification();
     const [flag, setflag] = useState(true)
-    const [breadCrumbName, setBreadCrumbName] = useState('')
     const navigate = useNavigate()
-    const location = useLocation()
     const breadCrumb = [
         {
             id: 1,
@@ -46,6 +44,7 @@ function App() {
             url: '/info'
         }
     ]
+
     useEffect(() => {
         axios.get('api/users/info').then(res => {
             if (res.data.code === '004') {
@@ -61,13 +60,6 @@ function App() {
             console.log(err);
         })
     }, [])
-    useEffect(() => {
-        breadCrumb.map(item => {
-            if (location.pathname == item.url) {
-                setBreadCrumbName(item.title)
-            }
-        })
-    })
     return (
         <div className='app'>
             {contextHolder}
@@ -91,7 +83,7 @@ function App() {
                         {/* 右视图 */}
                         <div className='right-view'>
                             <div className='view-top'>
-                                当前位置：{breadCrumbName}
+                                <BreadCrumbs />
                             </div>
                             <div className='view-main'>
                                 <Routes>
