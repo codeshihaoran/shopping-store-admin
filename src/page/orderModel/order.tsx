@@ -5,6 +5,7 @@ import axios from "axios";
 import { order } from "@/type/order";
 import { Status } from "@/type/status";
 import { useNavigate } from "react-router-dom";
+import { Empty } from 'antd';
 const Order = () => {
     const [orderList, setOrderList] = useState([])
     const [searchValue, setSearchValue] = useState(
@@ -16,6 +17,7 @@ const Order = () => {
         }
     )
     const [searchData, setSearchData] = useState()
+    const [flag, setFlag] = useState(false)
     const navigate = useNavigate()
     useEffect(() => {
         axios.post('/api/admin/order/get').then(res => {
@@ -66,7 +68,10 @@ const Order = () => {
         console.log(data);
         axios.post('/api/admin/order/search', data).then(res => {
             if (res.data.code === '001') {
+                setFlag(false)
                 setOrderList(res.data.searchOrderInfo)
+            } else {
+                setFlag(true)
             }
             console.log(searchData);
 
@@ -121,7 +126,7 @@ const Order = () => {
                                 <div className="header-info order-time">下单时间</div>
                                 <div className="header-info order-action">操作</div>
                             </li>
-                            {orderList.map((item: order) => <li key={item.id} className="order-list">
+                            {flag === true ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : orderList.map((item: order) => <li key={item.id} className="order-list">
                                 <div className="header-info order-checkout"><Checkbox></Checkbox></div>
                                 <div className="header-info order-number">{item.order_id}</div>
                                 <div className="header-info order-title">{item.product_title}</div>
