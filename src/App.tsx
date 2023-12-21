@@ -2,17 +2,17 @@ import React, { useEffect, useState, } from 'react'
 import '@/app.less'
 import { Link, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
-import { notification, Menu } from 'antd'
+import { notification, Menu, Popconfirm, Avatar, message } from 'antd'
 import type { MenuProps } from 'antd';
-import { BankTwoTone } from '@ant-design/icons';
 import {
-    AppstoreOutlined,
+    BankTwoTone, BellTwoTone, UserOutlined, AppstoreOutlined,
     CalendarOutlined,
     MailOutlined,
     SettingOutlined,
 } from '@ant-design/icons';
 import BreadCrumbs from '@/compentens/breadCrumb';
-
+import { setUser } from '@/store/modules/user';
+import { useDispatch } from 'react-redux';
 // 路由组件
 import Login from '@/page/loginModel/login';
 import Product from '@/page/productModel/product'
@@ -68,6 +68,7 @@ function App() {
     const [api, contextHolder] = notification.useNotification();
     const [flag, setflag] = useState(true)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     useEffect(() => {
         axios.get('api/users/info').then(res => {
             if (res.data.code === '004') {
@@ -83,6 +84,21 @@ function App() {
             console.log(err);
         })
     }, [])
+    const confirm = () => {
+        dispatch(setUser(''))
+        axios.post('api/users/logout').then(res => {
+            if (res.data.code === '002') {
+                navigate('/')
+                api['success']({
+                    message: `你已退出成功`,
+                    description: `请重新登录！`,
+                });
+            }
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+        })
+    };
     return (
         <div className='app'>
             {contextHolder}
@@ -94,7 +110,18 @@ function App() {
                     {/* 导航栏区域 */}
                     <div className='topbar'>
                         <div className='topbar-left'><BankTwoTone /> Shopping</div>
-                        <div className='topbar-right'>aaa</div>
+                        <div className='topbar-right'>
+                            <Popconfirm
+                                title="退出登录"
+                                description="你确定要退出登录吗 ?"
+                                onConfirm={confirm}
+                                okText="Yes"
+                                cancelText="No"
+                            >
+                                <Avatar style={{ backgroundColor: '#87d068', marginRight: '7px' }} icon={<UserOutlined />} />
+                            </Popconfirm>
+                            <BellTwoTone />
+                        </div>
                     </div>
                     {/* 左视图 */}
                     <div className='main'>
@@ -104,7 +131,6 @@ function App() {
                             </div>
                             <Menu style={{ width: 256 }}
                                 defaultSelectedKeys={['1']}
-                                defaultOpenKeys={['sub1']}
                                 items={items} />
                         </div>
                         {/* 右视图 */}

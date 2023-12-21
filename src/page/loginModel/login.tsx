@@ -58,6 +58,7 @@ const Login = () => {
                     dispatch(setUser(res.data.user))
                     // 跳转到首页
                     navigate('/')
+                    window.location.reload();
                     break;
                 case '002':
                     api['error']({
