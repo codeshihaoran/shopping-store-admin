@@ -1,10 +1,18 @@
 import React, { useEffect, useState, } from 'react'
 import '@/app.less'
-import { Link, useNavigate, Routes, Route, useLocation } from "react-router-dom";
+import { Link, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
-import { notification } from 'antd'
+import { notification, Menu } from 'antd'
+import type { MenuProps } from 'antd';
+import {
+    AppstoreOutlined,
+    CalendarOutlined,
+    MailOutlined,
+    SettingOutlined,
+} from '@ant-design/icons';
 import BreadCrumbs from '@/compentens/breadCrumb';
-// page
+
+// 路由组件
 import Login from '@/page/loginModel/login';
 import Product from '@/page/productModel/product'
 import Order from '@/page/orderModel/order';
@@ -15,36 +23,51 @@ import Revise from '@/page/reviseModel/revise';
 import Addproduct from '@/page/addProductModel/add-product';
 import User from '@/page/userModel/user';
 import Details from '@/page/detailsModel/details';
+
+// 导航菜单
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+    label: React.ReactNode,
+    key?: React.Key | null,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+): MenuItem {
+    return {
+        key,
+        icon,
+        children,
+        label,
+    } as MenuItem;
+}
+
+const items: MenuItem[] = [
+    getItem('商城首页', 'sub1', <MailOutlined />, [
+        getItem(<Link to={'/'}>仪表盘</Link>, '1'),
+    ]),
+    getItem('商品管理', 'sub2', <CalendarOutlined />, [
+        getItem(<Link to={'/product'}>商品列表</Link>, '2'),
+        getItem(<Link to={'/add-product'}>新增商品</Link>, '3'),
+    ]),
+    getItem('订单管理', 'sub3', <AppstoreOutlined />, [
+        getItem(<Link to={'/order'}>订单列表</Link>, '4'),
+    ]),
+    getItem('信息管理', 'sub4', <SettingOutlined />, [
+        getItem(<Link to={'/info'}>信息列表</Link>, '5'),
+
+    ]),
+    getItem('用户管理', 'sub5', <SettingOutlined />, [
+        getItem(<Link to={'/user'}>用户列表</Link>, '6'),
+
+    ]),
+]
+
+
 function App() {
     const [api, contextHolder] = notification.useNotification();
     const [flag, setflag] = useState(true)
     const navigate = useNavigate()
-    const breadCrumb = [
-        {
-            id: 1,
-            title: '商城首页',
-            url: '/'
-        }, {
-            id: 2,
-            title: '商品管理',
-            url: '/product'
-        }, {
-            id: 3,
-            title: '订单管理',
-            url: '/order'
-        },
-        {
-            id: 5,
-            title: '用户管理',
-            url: '/user'
-        },
-        {
-            id: 4,
-            title: '信息管理',
-            url: '/info'
-        }
-    ]
-
     useEffect(() => {
         axios.get('api/users/info').then(res => {
             if (res.data.code === '004') {
@@ -76,9 +99,14 @@ function App() {
                             <div className='left-view-top'>
                                 <a href="#">SHOPPING-ADMIN</a>
                             </div>
-                            <ul>
-                                {breadCrumb.map(item => <li key={item.id}><Link to={item.url}>{item.title}</Link></li>)}
-                            </ul>
+                            <Menu
+                                style={{ width: 256 }}
+                                defaultSelectedKeys={['1']}
+                                defaultOpenKeys={['sub1']}
+                                items={items}
+                            >
+
+                            </ Menu>
                         </div>
                         {/* 右视图 */}
                         <div className='right-view'>
