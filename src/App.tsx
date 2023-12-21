@@ -63,7 +63,6 @@ const items: MenuItem[] = [
     ]),
 ]
 
-
 function App() {
     const [api, contextHolder] = notification.useNotification();
     const [flag, setflag] = useState(true)
@@ -99,14 +98,10 @@ function App() {
                             <div className='left-view-top'>
                                 <a href="#">SHOPPING-ADMIN</a>
                             </div>
-                            <Menu
-                                style={{ width: 256 }}
+                            <Menu style={{ width: 256 }}
                                 defaultSelectedKeys={['1']}
                                 defaultOpenKeys={['sub1']}
-                                items={items}
-                            >
-
-                            </ Menu>
+                                items={items} />
                         </div>
                         {/* 右视图 */}
                         <div className='right-view'>

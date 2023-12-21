@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 const items = [
     {
         path: '/',
-        title: '商城首页',
+        title: '仪表盘',
     },
     {
         path: '/product',
@@ -51,12 +51,12 @@ const BreadCrumbs = () => {
     useEffect(() => {
         items.map(item => {
             if (item.path === location.pathname) {
-                setBreadCrumbName(item.title)
+                setBreadCrumbName('首页' + ' / ' + item.title)
             }
             if (item.children) {
                 item.children.map(it => {
                     if (it.path === location.pathname) {
-                        setBreadCrumbName(item.title + '  /  ' + it.title)
+                        setBreadCrumbName('首页' + ' / ' + item.title + ' / ' + it.title)
                     }
                 })
             }
