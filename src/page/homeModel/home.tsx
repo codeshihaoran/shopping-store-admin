@@ -17,31 +17,32 @@ const Home = () => {
         }).catch(err => {
             console.log(err);
         })
-    })
+    }, [])
     return (
         <div className="home">
             <div className="view-main">
                 <div className="dash-board">
-                    <Row gutter={16}>
+                    <span>订单数据</span>
+                    <Row gutter={16} style={{ marginTop: '20px' }}>
                         <Col span={8}>
-                            <Card title="订单数量" bordered={false}>
+                            <Card title="订单数量" bordered={false} style={{ border: '1px solid lightblue', paddingRight: '20px' }} >
                                 {orderSale.saleSum}
                             </Card>
                         </Col>
                         <Col span={8}>
-                            <Card title="销售总额" bordered={false}>
+                            <Card title="销售总额" bordered={false} style={{ border: '1px solid lightblue', paddingRight: '20px' }}>
                                 {orderSale.salePrice}
                             </Card>
                         </Col>
                         <Col span={8}>
-                            <Card title="新增用户" bordered={false}>
+                            <Card title="新增用户" bordered={false} style={{ border: '1px solid lightblue', paddingRight: '20px' }}>
                                 {orderSale.userSum}
                             </Card>
                         </Col>
                     </Row>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 export default Home

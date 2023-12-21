@@ -4,6 +4,7 @@ import { Link, useNavigate, Routes, Route } from "react-router-dom";
 import axios from 'axios';
 import { notification, Menu } from 'antd'
 import type { MenuProps } from 'antd';
+import { BankTwoTone } from '@ant-design/icons';
 import {
     AppstoreOutlined,
     CalendarOutlined,
@@ -91,12 +92,15 @@ function App() {
             {flag &&
                 <div className='app-main'>
                     {/* 导航栏区域 */}
-                    <div className='topbar'> </div>
+                    <div className='topbar'>
+                        <div className='topbar-left'><BankTwoTone /> Shopping</div>
+                        <div className='topbar-right'>aaa</div>
+                    </div>
                     {/* 左视图 */}
                     <div className='main'>
                         <div className='left-view'>
                             <div className='left-view-top'>
-                                <a href="#">SHOPPING-ADMIN</a>
+                                <a href="#"></a>
                             </div>
                             <Menu style={{ width: 256 }}
                                 defaultSelectedKeys={['1']}
@@ -127,7 +131,7 @@ function App() {
                         底部内容
                     </div>
                 </div>}
-        </div>
+        </div >
     )
 }
 export default App
