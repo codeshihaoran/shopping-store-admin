@@ -70,7 +70,7 @@ const Home = () => {
         <div className="home">
             <div className="view-main">
                 <div className="dash-board">
-                    <span>订单数据</span>
+                    <span>后台数据</span>
                     <Row gutter={16} style={{ margin: '20px 0px' }}>
                         <Col span={8}>
                             <Card title="订单数量" bordered={false} style={{ border: '1px solid lightblue', paddingRight: '20px' }} >
@@ -93,7 +93,9 @@ const Home = () => {
                         pagination={{
                             itemRender: (page, type, originalElement) => {
                                 return (
-                                    <div style={{ marginTop: '-8px' }}>
+                                    <div style={{
+                                        marginTop: '-8px'
+                                    }}>
                                         {originalElement}
                                     </div>
                                 )
