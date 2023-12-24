@@ -153,9 +153,6 @@ function App() {
                             </div>
                         </div>
                     </div>
-                    <div className='footer'>
-                        底部内容
-                    </div>
                 </div>}
         </div >
     )

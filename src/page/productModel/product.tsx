@@ -36,11 +36,6 @@ const Product = () => {
         <div className="product">
             <div className="view-main">
                 <div className="content">
-                    <div className="button-group">
-                        <Button type="primary" onClick={() => navigate('/add-product')}>
-                            添加商品
-                        </Button>
-                    </div>
                     <ul>
                         {/*  商品列表表头 */}
                         <li className="header">
