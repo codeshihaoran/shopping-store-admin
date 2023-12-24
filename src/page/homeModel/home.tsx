@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './home.less'
-import { Col, Row, Card, Space, Table, Tag } from 'antd';
+import { Col, Row, Card, Space, Table, Tag, Tabs } from 'antd';
+import { TeamOutlined, AppstoreOutlined } from "@ant-design/icons";
 import type { ColumnsType } from 'antd/es/table';
 import axios from "axios";
 interface DataType {
@@ -46,6 +47,10 @@ const columns: ColumnsType<DataType> = [
         ),
     },
 ]
+const items = [
+    { key: '1', label: '商品总览', values: '我是商品总览哦', icon: <AppstoreOutlined /> },
+    { key: '2', label: '用户总览', values: '我是用户总览哦', icon: <TeamOutlined /> }
+]
 const Home = () => {
     const [orderSale, SetOrderSale] = useState({
         salePrice: 0,
@@ -89,7 +94,7 @@ const Home = () => {
                         </Col>
                     </Row>
                     <span>待办事务</span>
-                    <Table columns={columns} dataSource={data} style={{ margin: '20px 0px' }}
+                    <Table columns={columns} dataSource={data} style={{ margin: '20px 0px 0px' }}
                         pagination={{
                             itemRender: (page, type, originalElement) => {
                                 return (
@@ -101,6 +106,18 @@ const Home = () => {
                                 )
                             }
                         }}
+                    />
+                    <Tabs
+                        defaultActiveKey="1"
+                        centered
+                        items={items.map((item) => {
+                            return {
+                                label: item.label,
+                                key: item.key,
+                                children: item.values,
+                                icon: item.icon
+                            }
+                        })}
                     />
                 </div>
             </div>
