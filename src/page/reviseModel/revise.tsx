@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './revise.less'
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -7,6 +7,21 @@ const Revise = () => {
     const navigate = useNavigate()
     const [params] = useSearchParams()
     let product_id = params.get('productId')
+    const data = {
+        productId: product_id
+    }
+    useEffect(() => {
+        axios.post('/api/product/details/get', data).then(res => {
+            console.log(res.data.product);
+            const product = res.data.product
+            setInputValues({
+                input1: product[0].product_name,
+                input2: product[0].product_price,
+                input3: product[0].product_num,
+                input4: product[0].product_selling_price,
+            })
+        })
+    }, [])
     const [inputValues, setInputValues] = useState({
         input1: '', // 修改的商品名称
         input2: '', // 修改的商品价格
