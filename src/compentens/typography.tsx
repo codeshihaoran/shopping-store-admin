@@ -17,7 +17,7 @@ const TypoGraphy = () => {
         <Title>项目背景</Title>
 
         <Paragraph>
-            shopping-Admin的开发源于学生在上半年期间开发的shopping-store<Link href="/docs/spec/proximity-cn">shopping-store</Link>的商品，订单，用户等等做了后台管理化的处理。目的是为了更好的管理数据，不再手改数据库来测试数据。更是为了锻炼<Text code>React</Text>和<Text code>Ts</Text>的项目实战经验
+            shopping-Admin的开发源于学生在上半年期间开发的shopping-store<Link href="https://github.com/codeshihaoran/shopping-store-frontend">shopping-store</Link>的商品，订单，用户等等做了后台管理化的处理。目的是为了更好的管理数据，不再手改数据库来测试数据。更是为了锻炼<Text code>React</Text>和<Text code>Ts</Text>的项目实战经验
         </Paragraph>
         在这个项目中，我们面临了一些挑战，如数据管理、用户权限控制、性能优化等。通过解决这些问题，我们积累了丰富的前端和后端开发经验。
         <Paragraph>
