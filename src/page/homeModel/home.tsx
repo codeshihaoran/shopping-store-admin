@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './home.less'
-import { Col, Row, Card, Space, Table, Tag, Tabs } from 'antd';
-import { TeamOutlined, AppstoreOutlined } from "@ant-design/icons";
+import { Col, Row, Card, Space, Table, Tag, Tabs, Statistic } from 'antd';
+import { TeamOutlined, AppstoreOutlined, ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import type { ColumnsType } from 'antd/es/table';
 import axios from "axios";
 interface DataType {
@@ -48,8 +48,54 @@ const columns: ColumnsType<DataType> = [
     },
 ]
 const items = [
-    { key: '1', label: '商品总览', values: '我是商品总览哦', icon: <AppstoreOutlined /> },
-    { key: '2', label: '用户总览', values: '我是用户总览哦', icon: <TeamOutlined /> }
+    {
+        key: '1', label: '商品总览', values: <Row gutter={16}>
+            <Col span={12}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="全部商品"
+                        value={20}
+                        valueStyle={{ color: '#3f8600' }}
+                        prefix={<ArrowUpOutlined />}
+                    />
+                </Card>
+            </Col>
+            <Col span={12}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="库存紧张"
+                        value={25}
+                        valueStyle={{ color: '#cf1322' }}
+                        prefix={<ArrowDownOutlined />}
+                    />
+                </Card>
+            </Col>
+        </Row>, icon: <AppstoreOutlined />
+    },
+    {
+        key: '2', label: '用户总览', values: <Row gutter={16}>
+            <Col span={12}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="用户新增"
+                        value={56}
+                        valueStyle={{ color: '#3f8600' }}
+                        prefix={<ArrowUpOutlined />}
+                    />
+                </Card>
+            </Col>
+            <Col span={12}>
+                <Card bordered={false}>
+                    <Statistic
+                        title="用户总量"
+                        value={300}
+                        valueStyle={{ color: '#cf1322' }}
+                        prefix={<ArrowDownOutlined />}
+                    />
+                </Card>
+            </Col>
+        </Row>, icon: <TeamOutlined />
+    }
 ]
 const Home = () => {
     const [orderSale, SetOrderSale] = useState({
@@ -75,7 +121,7 @@ const Home = () => {
         <div className="home">
             <div className="view-main">
                 <div className="dash-board">
-                    <span>后台数据</span>
+                    <span className="span-style">后台数据</span>
                     <Row gutter={16} style={{ margin: '20px 0px' }}>
                         <Col span={8}>
                             <Card title="订单数量" bordered={false} style={{ border: '1px solid lightblue', paddingRight: '20px' }} >
@@ -93,20 +139,8 @@ const Home = () => {
                             </Card>
                         </Col>
                     </Row>
-                    <span>待办事务</span>
-                    <Table columns={columns} dataSource={data} style={{ margin: '20px 0px 0px' }}
-                        pagination={{
-                            itemRender: (page, type, originalElement) => {
-                                return (
-                                    <div style={{
-                                        marginTop: '-8px'
-                                    }}>
-                                        {originalElement}
-                                    </div>
-                                )
-                            }
-                        }}
-                    />
+                    <span className="span-style">待办事务</span>
+                    <Table columns={columns} dataSource={data} style={{ margin: '20px 0px 0px' }} />
                     <Tabs
                         defaultActiveKey="1"
                         centered
