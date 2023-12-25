@@ -3,6 +3,8 @@ import './home.less'
 import { Col, Row, Card, Space, Table, Tag, Tabs, Statistic } from 'antd';
 import { TeamOutlined, AppstoreOutlined, ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import type { ColumnsType } from 'antd/es/table';
+
+import TypoGraphy from "@/compentens/typography";
 import axios from "axios";
 interface DataType {
     key: string;
@@ -144,6 +146,7 @@ const Home = () => {
                     <Tabs
                         defaultActiveKey="1"
                         centered
+                        style={{ marginBottom: '40px' }}
                         items={items.map((item) => {
                             return {
                                 label: item.label,
@@ -153,6 +156,7 @@ const Home = () => {
                             }
                         })}
                     />
+                    <TypoGraphy />
                 </div>
             </div>
         </div >
